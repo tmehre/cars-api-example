@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<soapui.version>5.3.0</soapui.version>
 	</properties>
 	<build>
 		<plugins>
@@ -24,6 +25,42 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.smartbear.soapui</groupId>
+				<artifactId>soapui-maven-plugin</artifactId>
+				<version>${soapui.version}</version>
+				<executions>
+					<execution>
+						<id>soapui-tests</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+							<projectFile>${project.basedir}/src/test/resources/Cars-API-Tests-soapui-project.xml</projectFile>
+							<junitReport>true</junitReport>
+							<outputFolder>${project.build.directory}/soapui-report</outputFolder>
+						</configuration>
+
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.smartbear.soapui</groupId>
+						<artifactId>soapui</artifactId>
+						<version>${soapui.version}</version>
+						<exclusions>
+							<exclusion>
+								<groupId>javafx</groupId>
+								<artifactId>jfxrt</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+				</dependencies>
+			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -67,4 +104,11 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>smartbear</id>
+			<url>http://smartbearsoftware.com/repository/maven2</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
