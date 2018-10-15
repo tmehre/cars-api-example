@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +37,8 @@ public class CarRepositioryTest {
 
 	@Test
 	public void saveCar() throws Exception {
-		assertThat(carRepo.findById(1).get().getId(), is(1));
+		Optional<Car> persisted = carRepo.findById(1);
+		Car car = persisted.get();
+		assertThat(car.getId(), is(1));
 	}
 }
