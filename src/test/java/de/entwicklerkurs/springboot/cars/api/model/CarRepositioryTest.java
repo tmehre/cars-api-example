@@ -20,7 +20,7 @@ public class CarRepositioryTest {
 	private CarRepositiory carRepo;
 
 	@Test
-	public void findById() throws Exception {
+	public void findByIdNeverNull() throws Exception {
 		assertThat(carRepo.findById(1), is(notNullValue()));
 	}
 }
